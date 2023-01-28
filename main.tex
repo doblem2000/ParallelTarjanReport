@@ -1,0 +1,178 @@
+\documentclass[a4paper, 11pt, oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.5cm]{geometry}
+\linespread{1.5}
+\usepackage[backend=bibtex, sorting=none]{biblatex}
+\addbibresource{bib.bib}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{subfiles}
+\usepackage{lmodern}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[english]{babel}
+\usepackage{verbatim}
+\usepackage{hyperref}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{3}
+
+% \setlength{\parindent}{1cm}
+\setlength{\headheight}{13.59999pt}
+% You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.59999pt}
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ \uppercase{#1}}{}}
+\fancyhf{}
+\fancyhead[C]{\textbf{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\usepackage[Conny]{fncychap}
+
+\makeatletter
+\renewcommand\@chapapp{Capitolo} 
+\makeatother
+%Metadati
+\title{HPC Report}
+\author{Antonio Langella, Michele Marsico, Salvatore Paolino, Davide Risi}
+\date{December 2022}
+
+\newenvironment{dedication}
+  {\clearpage           % we want a new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top 
+   \itshape             % the text is in italics
+   \raggedleft          % flush to the right margin
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }
+% \lstset{ 
+%   language=R,                     % the language of the code
+%   basicstyle=\fontsize{9}{9}\selectfont\ttfamily, %\tiny\ttfamily, % the size of the fonts that are used for the code
+%   numbers=left,                   % where to put the line-numbers
+%   %numberstyle=\tiny\color{Blue},  % the style that is used for the line-numbers
+%   stepnumber=1,                   % the step between two line-numbers. If it is 1, each line
+%                                   % will be numbered
+%   numbersep=5pt,                  % how far the line-numbers are from the code
+%   backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+%   showspaces=false,               % show spaces adding particular underscores
+%   showstringspaces=false,         % underline spaces within strings
+%   showtabs=false,                 % show tabs within strings adding particular underscores
+%   frame=single,                   % adds a frame around the code
+%   rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+%   tabsize=2,                      % sets default tabsize to 2 spaces
+%   captionpos=b,                   % sets the caption-position to bottom
+%   breaklines=true,                % sets automatic line breaking
+%   breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+%   %keywordstyle=\color{RoyalBlue},      % keyword style
+%   commentstyle=\color{YellowGreen},   % comment style
+%   stringstyle=\color{ForestGreen}      % string literal style
+% } 
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true
+  %postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+\begin{document}
+%Frontespizio
+\begin{titlepage}
+    \begin{center}
+        \LARGE{\uppercase{Università degli Studi di Salerno}}\\
+        \vspace{5mm}
+        %Dipartimento
+    	\uppercase{\normalsize DIPARTIMENTO DI INGEGNERIA DELL'INFORMAZIONE ED ELETTRICA E MATEMATICA APPLICATA }\\
+    \end{center}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\textwidth]{img/logo_unisa}
+    \end{figure}
+    
+    \begin{center}
+        %Corso di Laurea
+    	\normalsize{ Corso di Laurea Magistrale in Ingegneria Informatica }\\
+    	\vspace{10mm}
+    	%Titolo
+        {\LARGE{\bf Parallelization and performance evaluation of Tarjan's strongly connected components algorithm }}\\
+    	\vspace{3mm}
+    \end{center}
+    
+    \vspace{10mm}
+    \noindent
+   \begin{minipage}[t]{0.47\textwidth}
+   	{\large{ Lecturer:\\\bf Ch.mo Prof. \\Francesco MOSCATO \\fmoscato@unisa.it}}
+    \vspace{10mm}\\
+   	\begin{figure}[H]
+        \includegraphics[width=0.2\textwidth]{img/cc.xlarge.png}
+        \includegraphics[width=0.2\textwidth]{img/by.xlarge.png}
+        \includegraphics[width=0.2\textwidth]{img/nc.xlarge.png}
+        \includegraphics[width=0.2\textwidth]{img/sa.xlarge.png}
+    \end{figure}
+    %\vspace{10mm}\\
+    \begin{figure}[H]
+        \includegraphics[width=0.5\textwidth]{img/gpl3.jpg}
+    \end{figure}
+   \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.4\textwidth}\raggedleft
+    	{\large{Authors: \\ \bf Antonio LANGELLA \\ Mat. 0622702011 \\a.langella31@studenti.unisa.it \par\medskip \par\medskip \bf Michele MARSICO \\ Mat. 0622702012 \\m.marsico10@studenti.unisa.it \par\medskip \par\medskip \bf Salvatore PAOLINO \\ Mat. 0622702016 \\s.paolino6@studenti.unisa.it \par\medskip \par\medskip \bf Davide RISI \\ Mat. 0622702013 \\d.risi2@studenti.unisa.it}}
+    \end{minipage}
+    
+    \vspace{15mm}
+    
+    %Anno Accademico
+    \centering{\large \uppercase{ Anno Accademico 2022/2023 }}
+
+\end{titlepage}
+
+%Corpo della relazione
+\tableofcontents %Indice
+\clearpage
+\sloppy
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+\chapter{Introduction} 
+\subfile{Chapter 1/main}
+
+\chapter{MPI implementation}
+\subfile{Chapter 2/main}
+
+\chapter{CUDA implementation with global memory}
+\subfile{Chapter 3/main}
+
+\chapter{Hybrid CUDA and MPI implementation}
+\subfile{Chapter 4/main}
+
+\chapter{CUDA implementation with texture memory} %\label{Cap5}
+\subfile{Chapter 5/main}
+
+%\addcontentsline{toc}{chapter}{Introduzione} %Aggiunge l'introduzione all'indice
+\clearpage
+
+\printbibliography[
+heading=bibintoc,
+title={References}
+]
+\clearpage
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+%\clearpage
+%\listoftables
+%\addcontentsline{toc}{chapter}{\listtablename}
+\clearpage
+\subfile{CCLicense.tex}
+\end{document}

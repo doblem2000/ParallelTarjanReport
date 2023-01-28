@@ -1,0 +1,11 @@
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\toprule
+ Version &  Threads &  vertices &  init & finalize &  preprocess & conversion &  tarjan &  user &  system &   pCPU &  elapsed &  Speedup &  Efficiency \\
+\midrule
+  Serial &        1 &  0.000 & 0.026 &  no data &       0.005 &    no data &   0.000 & 0.023 &   0.000 & 97.320 &    0.030 &    1.000 &       1.000 \\
+Parallel &   250000 &  0.000 & 0.058 &    0.000 &       0.000 &      0.001 &   0.000 & 0.024 &   0.036 & 86.400 &    0.077 &    0.391 &       0.000 \\
+Parallel &   500000 &  0.000 & 0.058 &    0.000 &       0.001 &      0.001 &   0.000 & 0.027 &   0.034 & 87.600 &    0.078 &    0.385 &       0.000 \\
+Parallel &   750000 &  0.000 & 0.059 &    0.000 &       0.001 &      0.001 &   0.000 & 0.027 &   0.036 & 90.160 &    0.075 &    0.401 &       0.000 \\
+Parallel &  1000000 &  0.000 & 0.058 &    0.000 &       0.002 &      0.001 &   0.000 & 0.023 &   0.038 & 87.440 &    0.078 &    0.385 &       0.000 \\
+\bottomrule
+\end{tabular}

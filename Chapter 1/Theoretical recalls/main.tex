@@ -1,0 +1,57 @@
+\subsection{GPU}
+A graphics processing unit (GPU) is a specialized electronic circuit designed to manipulate and alter memory to accelerate the creation of images in a frame buffer intended for output to a display device \cite{wiki:GPU}.
+GPUs are used in embedded systems, smartphones, PC, workstations, and game consoles.
+Since the beginning of the century GPUs have been used not only for graphic computations but also for general-purpose computing (typically done by CPUs).
+The main differences between GPUs and CPUs are:
+\begin{itemize}
+    \item GPUs have much more parallel execution units than CPUs.
+    \item GPUs have deeper pipes than CPUs.
+    \item CPUs can handle complex control logic, while GPUs are optimized for simple control logic.
+\end{itemize}
+GPUs are perfect to run in parallel the same set of simple instructions on a lot of different data.
+
+\subsection{CUDA}
+\textbf{CUDA (Compute Unified Device Architecture)} is a parallel computing platform and application programming interface (API), created by Nvidia, that allows software to use certain types of graphics processing units (GPUs) for general purpose processing, an approach called general-purpose computing on GPUs (GPGPU).
+CUDA is a software layer that gives direct access to the GPU's virtual instruction set and parallel computational elements, for the execution of compute kernels \cite{wiki:CUDA}.
+To fully understand the results of this report, it is fundamental to give some definitions:
+\begin{itemize}
+    \item Host is the computer on which GPU is mounted.
+    \item Device is another word through which GPU is indicated.
+    \item Compute Capability (c.c.) identifies the features supported by the GPU hardware (its version).
+    \item Kernel is a CUDA function written to run on device.
+    \item Execution cores are the computing elements mounted on a GPU. They are a sort of ALUs (Arithmetic Logic Unit).
+    \item Streaming Multiprocessor (SM) is a GPU unit that consists of registers, several caches, warp schedulers and execution cores.
+    \item Warp is a grouping of 32 threads.
+    \item Thread is a flow of execution.
+    \item Block is a group of threads organized in 1D, 2D or 3D logical arrays.
+    \item Grid is a group of blocks organized in 1D, 2D or 3D logical arrays.
+\end{itemize}
+
+GPUs are characterized by a particular memory hierarchy.
+All CUDA threads in a block have access to the resources of the Streaming Multiprocessor assigned to the block to which the threads belong, that are registers and shared memory.
+Threads belonging to different blocks cannot share registers and shared memory. The \textbf{Shared Memory} is a memory with a configurable size (32 to 48 KByte), it has a very low latency (2 clocks per cycle), and a throughput of 32 bit/2 cycles.
+This type of memory is not persistent, that means its status is not maintained between different kernel calls.
+Because it is shared between all threads in a block, synchronization is needed.
+
+All CUDA threads, also, can access to all the memory types available on the GPU:
+\begin{itemize}
+    \item \textbf{Global Memory} is the largest memory available on a device. It is comparable to a RAM for CPU and its status is maintained among different kernel launches. This memory can be accessed both read/write from all threads of the kernel grid, and it has a very high bandwidth (throughput up to 144-177 GB/s) and a very high latency (about 400-800 clock cycles).
+    \item \textbf{Constant Memory} is a read-only memory, and it's very efficient when all threads in a warp request the same memory address. The throughput is the same as the shared memory.
+    \item \textbf{Texture Memory} is a read-only memory with a dedicated cache, which means that subsequent uses of the same texture memory are extremely fast. It can be used to obtain a greater efficient bandwidth, reducing calls to global memory on DRAM. Each SM has various texture fetch units that are dedicated units to access the texture memory.
+\end{itemize}
+CPU can access and initialize both constant and texture memories. Global, constant and texture memories have persistent storage duration.
+
+\subsection{MPI}
+\textbf{Message Passing Interface (MPI)} is a standardized and portable message-passing standard designed to function on parallel computing architectures.
+The MPI standard defines the syntax and semantics of library routines that are useful to a wide range of users writing portable message-passing programs in C, C++, and Fortran \cite{wiki:MPI}.
+
+MPI is based on a Distributed Memory Model, in which several nodes send and receive messages, so that a sort of memory abstraction is created.
+MPI is not a programming language, but a framework in which a fundamental role is played by the middleware MPI, which manages synchronization among parallel processes and messages mechanism.
+
+One of the main MPI concepts is the meaning of communicator, that is a sort of container of processes, in which each of them is identified by a rank.
+The size of a communicator is given by the number of processes it manages and cannot be changed after its creation.
+
+
+% \begin{center}
+%     \resizebox{\textwidth}{!}{\subfile{psize-random-500000-table}}
+% \end{center}

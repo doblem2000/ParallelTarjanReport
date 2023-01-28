@@ -1,0 +1,248 @@
+In this appendix are presented the results of the parallel version of Tarjan's algorithm with MPI executed on the cluster of Raspberry.
+Each graph is tested with all the compiler optimization (O0, O1, O2, O3) and with 2, 4 and 8 processors MPI.
+In the next pages for each graph, set the optimization, there are a table and a graph of the speedup.
+In the table there are:
+\begin{itemize}
+    \item \textbf{Version}: is the version of the program. It can be "Serial" if it's the sequential version of the program, or it can be "Parallel" if it's the parallel version with MPI.
+    \item \textbf{Threads}: is the number of processors. For the "Serial" version, the value of this field is 1, because it's the sequential version of the program executed on only one processor of the CPU.
+    \item \textbf{vertices}: is the number of vertices of the graph.
+    \item \textbf{init}: is the time spent to initialize the program, in particular it's the time spent to create and initialize the data structures, and to read the graph from a file.
+    \item \textbf{tarjan}: is the time spent to execute Tarjan's algorithm. In the "Parallel" version is the time it takes to run Tarjan's algorithm on each MPI slave node, along with the time it takes to partition the graph into chunks, exchange messages between processes, store found SCCs, and create supernodes.
+    \item \textbf{split}: is the time spent to split the graph in the "Parallel" version. This phase is not provided by the sequential algorithm, in fact this field for this version is reported with the value "no data".
+    \item \textbf{merge}: is the time spent to merge the SCCs found. This phase involves merging the nodes of an SCC found by the Tarjan's algorithm into a supernode, and storing the SCC found in a dedicated data structure.
+    This phase is not provided by the sequential algorithm, in fact this field for this version is reported with the value "no data".
+    \item \textbf{user}: is the total number of CPU-seconds that the process used directly (in user mode), in seconds.
+    \item \textbf{system}: is the total number of CPU-seconds used by the system on behalf of the process (in kernel mode), in seconds.
+    \item \textbf{pCPU}: is the percentage of the CPU that this process got. This is just user + system times divided by the total running time.
+    \item \textbf{elapsed}: is the elapsed real (wall clock) time used by the process, in seconds.
+    \item \textbf{Speedup}: is the speedup of the program.
+    \item \textbf{Efficiency}: is the efficiency of the program. 
+\end{itemize}
+All values except those in the \verb|Version|, \verb|Threads|, \verb|Speedup|, and \verb|Efficiency| columns are means. These means were calculated from the files of the measurements taken.
+\verb|Speedup|, and \verb|Efficiency| are calculated with the formulas in Cap.\ref{ch:1} using the results of these means.
+
+%Fully disconnected graph
+\clearpage
+\subsection{Fully disconnected graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-fully-disconnected-1000000-O0-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-fully-disconnected-1000000-O0}
+\end{center}
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-fully-disconnected-1000000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-fully-disconnected-1000000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-fully-disconnected-1000000-O2-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-fully-disconnected-1000000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-fully-disconnected-1000000-O3-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-fully-disconnected-1000000-O3}
+\end{center}
+
+%Random-150000 graph
+\clearpage
+\subsection{Random-150000 graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-150000-O0-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-random-150000-O0}
+\end{center}
+
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-150000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-random-150000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-150000-O2-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-random-150000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-150000-O3-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-random-150000-O3}
+\end{center}
+
+%Random-250000 graph
+\clearpage
+\subsection{Random-250000 graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-250000-O0-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-random-250000-O0}
+\end{center}
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-250000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-random-250000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-250000-O2-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-random-250000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-250000-O3-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-random-250000-O3}
+\end{center}
+
+%Random-500000 graph
+\clearpage
+\subsection{Random-500000 graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-500000-O0-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-random-500000-O0}
+\end{center}
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-500000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-random-500000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-500000-O2-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-random-500000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-random-500000-O3-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-random-500000-O3}
+\end{center}
+
+%Tile-52000 graph
+\clearpage
+\subsection{Tile-52000 graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-52000-O0-table}}
+    \includegraphics[width=0.73\textwidth]{../img/speedup-graph_type-tile-52000-O0}
+\end{center}
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-52000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-tile-52000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-52000-O2-table}}
+    \includegraphics[width=0.77\textwidth]{../img/speedup-graph_type-tile-52000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-52000-O3-table}}
+    \includegraphics[width=0.77\textwidth]{../img/speedup-graph_type-tile-52000-O3}
+\end{center}
+
+%Tile-205000 graph
+\clearpage
+\subsection{Tile-205000 graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-205000-O0-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-tile-205000-O0}
+\end{center}
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-205000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-tile-205000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-205000-O2-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-tile-205000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-205000-O3-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-tile-205000-O3}
+\end{center}
+
+%Tile-410000 graph
+\clearpage
+\subsection{Tile-410000 graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-410000-O0-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-tile-410000-O0}
+\end{center}
+
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-410000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-tile-410000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-410000-O2-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-tile-410000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-410000-O3-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-tile-410000-O3}
+\end{center}
+
+%Tile-820000 graph
+\clearpage
+\subsection{Tile-820000 graph}
+\subsubsection{Optimization 0}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-820000-O0-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-tile-820000-O0}
+\end{center}
+
+\subsubsection{Optimization 1}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-820000-O1-table}}
+    \includegraphics[width=0.74\textwidth]{../img/speedup-graph_type-tile-820000-O1}
+\end{center}
+
+\clearpage
+\subsubsection{Optimization 2}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-820000-O2-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-tile-820000-O2}
+\end{center}
+
+\subsubsection{Optimization 3}
+\begin{center}
+    \resizebox{0.8\textwidth}{!}{\subfile{../tables/psize-graph_type-tile-820000-O3-table}}
+    \includegraphics[width=0.78\textwidth]{../img/speedup-graph_type-tile-820000-O3}
+\end{center}

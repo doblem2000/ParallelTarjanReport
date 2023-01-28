@@ -1,0 +1,6 @@
+\label{alg:cuda_mpi}
+The algorithm is identical to the one described in \ref{alg:mpi_only}, except that the master node executes the graph preprocesing with CUDA as described in \ref{alg:cuda_only}. There are several reasons why we decided not to execute graph preprocessing on each node:
+\begin{itemize}
+  \item The graph chunks assigned to the slave nodes are small. The overhead of using CUDA on such small graphs would hurt the algorithm more than it would benefit it.
+  \item The \verb|cuda_graph| representation described in \ref{rep:cuda_graph} requires that the nodes are numbered from $0$ to $N-1$. This is only true for the original graph on the master node, because later each slave processes subgraphs with arbitrary node IDs.
+\end{itemize}

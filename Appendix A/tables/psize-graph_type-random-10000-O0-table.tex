@@ -1,0 +1,10 @@
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\toprule
+ Version &  Threads &  vertices &  init &  tarjan &   split &   merge &  user &  system &   pCPU &  elapsed &  Speedup &  Efficiency \\
+\midrule
+  Serial &        1 & 10000.000 & 0.079 &   0.042 & no data & no data & 0.115 &   0.003 & 99.120 &    0.123 &    1.000 &       1.000 \\
+Parallel &        2 & 10000.000 & 0.038 &   0.372 &   0.011 &   0.000 & 0.201 &   0.064 & 20.840 &    1.294 &    0.095 &       0.048 \\
+Parallel &        4 & 10000.000 & 0.037 &   0.217 &   0.011 &   0.000 & 0.192 &   0.072 & 21.680 &    1.455 &    0.085 &       0.021 \\
+Parallel &        8 & 10000.000 & 0.037 &   0.209 &   0.011 &   0.000 & 0.200 &   0.077 & 22.680 &    1.430 &    0.086 &       0.011 \\
+\bottomrule
+\end{tabular}

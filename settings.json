@@ -1,0 +1,4 @@
+{
+    "latex-workshop.latex.outDir" : "%DIR%/target",
+    "editor.wordWrap": "on"
+}

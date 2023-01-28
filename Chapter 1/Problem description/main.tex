@@ -1,0 +1,19 @@
+\label{alg:tarjan_theorical}
+The goal of this project is to parallelize and evaluate performances of Tarjan's Algorithm, mainly by using MPI and CUDA. 
+\textbf{Tarjan's strongly connected components algorithm} is an algorithm in graph theory for finding the strongly connected components (SCCs) of a directed graph.
+It runs in \textbf{O(n+m)}, where n is the number of vertices and m is the number of edges, thanks to a depth-first traversal procedure to output the list of all SCCs for a given directed graph \cite{doi:10.1137/0201010}.
+
+In the mathematical theory of directed graphs, a graph is said to be \textbf{strongly connected} if every vertex is reachable from every other vertex.
+The \textbf{strongly connected components} of an arbitrary directed graph form a partition into subgraphs that are themselves strongly connected \cite{wiki:SCC}.
+
+The algorithm takes a directed graph as input, and produces a partition of the graph's vertices into the graph's strongly connected components. 
+Each vertex of the graph appears in exactly one of the strongly connected components. Any vertex that is not on a directed cycle forms a strongly connected component all by itself: for example, a vertex whose in-degree or out-degree is 0, or any vertex of an acyclic graph.
+
+The basic idea of the algorithm is this: a depth-first search (DFS) begins from an arbitrary start node (and subsequent depth-first searches are conducted on any nodes that have not yet been found).
+As usual with DFS, the search visits every node of the graph exactly once, declining to revisit any node that has already been visited. Thus, the collection of search trees is a spanning forest of the graph.
+The strongly connected components will be recovered as certain subtrees of this forest. The roots of these subtrees are called the "roots" of the strongly connected components.
+Any node of a strongly connected component might serve as a root, if it happens to be the first node of a component that is discovered by search \cite{wiki:Tarjan}.
+
+The nodes are thus placed in a stack in the order in which they are visited. When the search moves up from a visited subtree, the corresponding nodes are taken from the stack, and it is determined whether each node is the root of a strongly connected component.
+If it is, then it forms a strongly connected component together with all those taken before.
+

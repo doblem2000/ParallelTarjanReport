@@ -1,0 +1,1 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe cache, however, is different to a conventional cache, in that it is optimised for spatial locality (in the coordinate system of the texture) and not locality in memory.\\E$"}

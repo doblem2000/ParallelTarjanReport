@@ -1,0 +1,28 @@
+\label{alg:mpi_only}
+\subsection{Description of the algorithm}
+Tarjan's parallel algorithm on MPI uses a Master/Slave communication model; i.e. a model in which one process, the Master, controls the communication of several processes, the Slaves. The Master node is identified by rank 0 while all Slave nodes are identified by a rank other than 0. \\
+The realised algorithm works on the abstract data type graph to represent the mathematical concept of an oriented graph. The implementation of the graph is realised via an adjacency map. 
+For reasons of effeciency in search operations, the adjacency map was implemented with a double HashMap. The first HashMap has as key the node ID and as value a set of node IDs reachable via outgoing edges; the second HashMap always has as key the node ID and as value a set of node IDs reachable via incoming edges.
+
+The first step of the MPI algorythm involves reading from a binary file the information about the graph whose SCCs we wish to find. The contents of the file must then be processed in order to derive the internal data structure on which to perform operations on the graph. In addition, a further data structure must be generated and initialised to keep track of all SCCs that are found during the execution of the programme.
+
+The MPI algorithm requires that the communicator processes have different functionalities depending on whether the node is a Master or a Slave. 
+
+\begin{itemize}
+    \item If the node is the Master: the process takes care of splitting the graph into smaller chunks of a fixed size, called CHUNK SIZE, and sending the chunk of the graph to a Slave node, which will take care of searching for SCCs within the subgraph. 
+    Once the processing of the graph has been completed and the SCCs of each chunk have been found, further processing must be carried out in order to find new SCCs that were not found in the previous processing of the graph. So, we proceed by carrying out new iterations of the previous operations doubling the size of the CHUNK SIZE at each iteration, all this until the CHUNK SIZE is at least equal to the number of nodes in the graph. \\
+    The Master node, once it has sent a chunk of the graph to the Slave node, waits until a Slave node has finished locating the SCCs in its assigned chunk. The Slave node sends each SCC it finds to the Master node, the latter proceeds to merge the found SCC into a supernode and stores the found SCC in a special data structure. After that, if the Slave node has finished execution on the chunk of the graph, the Master node sends a new chunk of the graph to the Slave node that has just finished. This process lasts as long as there are chunks available for processing.       
+    \item If the node is a Slave: the process receives a chunk of the graph from the Master node after which it applies the Tarjan algorithm on the received subgraph. As soon as the process finds an SCC it proceeds to send it to the Master node. When the process has processed the entire subgraph, it communicates this information to the master node while waiting for a new chunk of the graph to be processed. \\
+    Slave processes terminate only when the Master process sends it a special termination message.
+\end{itemize} 
+\subsubsection{Communication}
+The algorithm expects that the exchanged messages are dynamic arrays. Whenever a process wants to send a message, it must first communicate the size of the array, after which it can proceed to send the message. 
+The MPI algorithm requires two special messages:
+\begin{enumerate}
+    \item The Slave node communicates to the Master node that it has finished processing the subgraph by sending an array (which normally represents the found SCC) of size zero. In this way, the Master node interprets this information as the end of the processing of the chunk assigned to the Slave process and thus the latter is ready to do more work.
+    \item The Master node, when it has to finish because all the operations provided by the MPI algorithm have been performed, sends a message to all Slave nodes of a dynamic array (which normally represents a graph chunk) of size zero. The Slave node interprets this information as a termination message for all tasks and finishes its execution.     
+\end{enumerate}
+
+
+
+

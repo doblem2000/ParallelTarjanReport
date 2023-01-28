@@ -1,0 +1,64 @@
+\noindent Information provided below refers to hardware and software used during the evaluation of performances.
+
+\subsection{Hardware}
+Several machines were used to make the measurements. In the following, the following coding will be used:
+\begin{itemize}
+  \item \textbf{Machine A}: Dell XPS17 laptop PC
+  \item \textbf{Machine B}: HP Elitebook laptop
+  \item \textbf{Machine C} A desktop PC
+  \item \textbf{Machine P4}: A raspberry Pi4
+  \item \textbf{Machine P3}: A raspberry Pi3
+\end{itemize}
+In particular:
+\begin{itemize}
+    \item for the measurements of the \verb|sequential|, \verb|sequential_pre|, \verb|cuda| and \verb|cuda_texture| programs the machine A was used;
+    \item for the measurements of the \verb|mpi| and \verb|cuda_mpi| programs, a cluster consisting of the machine A (master), the machines B and C (slaves) was used.
+\end{itemize}
+On the next pages we report the CPU, memory specifications of each machine as well as the GPU specifications of machine A.
+
+\subsubsection{Machine A}
+\paragraph{CPU}\mbox{}\\
+This CPU has 20 processors, but in order not to be redundant we only present the specifications relative to a single core.
+{\fontsize{9}{10}\selectfont \verbatiminput{infopcmichele.txt}}
+\paragraph{Memory}
+{\fontsize{9}{10}\selectfont \verbatiminput{infopcmemmichele.txt}}
+\paragraph{GPU}
+{\fontsize{9}{10}\selectfont \verbatiminput{gpumicheleinfo1.txt}}
+{\fontsize{9}{10}\selectfont \verbatiminput{gpumicheleinfo2.txt}}
+
+\subsubsection{Machine B}
+\paragraph{CPU}\mbox{}\\
+This CPU has 16 processors, but in order not to be redundant we only present the specifications relative to a single core.
+{\fontsize{9}{10}\selectfont \verbatiminput{antonio-hp-cpuinfo.txt}}
+\paragraph{Memory}
+{\fontsize{9}{10}\selectfont \verbatiminput{antonio-hp-meminfo.txt}}
+
+\subsubsection{Machine C}
+\paragraph{CPU}\mbox{}\\
+This CPU has 8 processors, but in order not to be redundant we only present the specifications relative to a single core.
+{\fontsize{9}{10}\selectfont \verbatiminput{cartagho_cpu_info.txt}}
+\paragraph{Memory}
+{\fontsize{9}{10}\selectfont \verbatiminput{cartagho_mem_info.txt}}
+
+\subsubsection{Machine P4}
+\paragraph{CPU}\mbox{}\\
+This CPU has 4 processors, but in order not to be redundant we only present the specifications relative to a single core.
+{\fontsize{9}{10}\selectfont \verbatiminput{raspPI4.txt}}
+\paragraph{Memory}
+{\fontsize{9}{10}\selectfont \verbatiminput{raspPI4mem.txt}}
+
+\subsubsection{Machine P3}
+\paragraph{CPU}\mbox{}\\
+This CPU has 4 processors, but in order not to be redundant we only present the specifications relative to a single core.
+{\fontsize{9}{10}\selectfont \verbatiminput{raspPI3.txt}}
+\paragraph{Memory}
+{\fontsize{9}{10}\selectfont \verbatiminput{raspPI3mem.txt}}
+
+\subsection{Software}
+\noindent Every machine used runs \textbf{Ubuntu 22.04 LTS} as its operating system. \\The used compilers were:
+\begin{itemize}
+    \item \textbf{C compiler}: gcc 11.3.0;
+    \item \textbf{MPI framework}: MPICH 4.0;
+    \item \textbf{CUDA compiler}: Cuda compilation tools, release 12.0, V12.0.76, Build cuda\_12.0.r12.0/compiler.31968024\_0.
+\end{itemize}
+In addition, Python 3.10.6 was used for creating the tables and speedup graphs based on the measurements.

@@ -1,0 +1,15 @@
+The assigned problem is to provide a parallel version of the Tarjan's algorithm to find Strongly Connected Components (SCC) in a graph with an implementation that had to use an hybrid message passing/CUDA paradigm, implemented by using MPI and CUDA.
+In particular, in this report different implementations of the Tarjan's algorithm will be presented, and their performances will be evaluated:
+\begin{itemize}
+    \item a sequential version described in \ref{alg:sequential};
+    \item a sequential version with graph preprocessing described in \ref{alg:sequential_pre};
+    \item a parallel version with MPI described in \ref{alg:mpi_only};
+    \item a parallel version with CUDA described in \ref{alg:cuda_only};
+    \item a parallel version based on a hybrid CUDA/MPI approach described in \ref{alg:cuda_mpi}.
+    \item a parallel version with CUDA which exploits texture memory described in \ref{alg:cuda_texture};
+\end{itemize}
+
+In the following pages the problem faced is going to be described in a detailed way, along with the most important theoretical concepts about GPUs (Graphics Processing Unit), 
+CUDA and MPI.
+Great attention is going to be reserved to the description of the different case studies considered. 
+%the results are going to be analysed and explained in the light of the theoretical knowledge acquired during the High-Performance Computing course held by prof. Francesco Moscato at University of Salerno.
